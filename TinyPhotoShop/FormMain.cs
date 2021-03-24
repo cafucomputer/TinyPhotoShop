@@ -12,6 +12,9 @@ namespace TinyPhotoShop
 {
     public partial class FormMain : Form
     {
+        public static Int32 textBoxBlinkTimes = 4;
+        public static Color textBoxOriginalBackColor = Color.White;
+
         public FormMain()
         {
             InitializeComponent();
@@ -38,6 +41,26 @@ namespace TinyPhotoShop
 
         private void button_Start_Click(object sender, EventArgs e)
         {
+            //check before continue
+            if(textBox_OpenFiles.TextLength < 4)
+            {
+                //an absolute file path suppose longer then 4 chars e.g  "c:\a"
+                textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OpenFiles.Text + " ] is not a file(s)" + "\r\n");
+                return;
+            }
+            if(textBox_OutputDir.TextLength < 3)
+            {
+                //an absolute dir path suppose longer then 3 chars e.g  "c:\"
+                textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OutputDir.Text + " ] is not a directory" + "\r\n");
+
+                //store original color
+                textBoxOriginalBackColor = textBox_OutputDir.BackColor;
+
+                timer1.Enabled = true;
+                timer1.Start();
+                return;
+            }
+
             //enumerate all files
             foreach (String sFile in textBox_OpenFiles.Lines)
             {
@@ -49,6 +72,22 @@ namespace TinyPhotoShop
                 }
             }
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(textBoxBlinkTimes > 0)
+            {
+                if (textBox_OutputDir.BackColor == textBoxOriginalBackColor)
+                    textBox_OutputDir.BackColor = Color.Red;
+                else
+                    textBox_OutputDir.BackColor = textBoxOriginalBackColor;
+
+                textBoxBlinkTimes --;
+            } else {
+                textBoxBlinkTimes = 4;
+                timer1.Stop();
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ namespace TinyPhotoShop
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox_InputFiles = new System.Windows.Forms.GroupBox();
             this.button_OpenFiles = new System.Windows.Forms.Button();
             this.textBox_OpenFiles = new System.Windows.Forms.TextBox();
@@ -51,6 +52,7 @@ namespace TinyPhotoShop
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox_InputFiles.SuspendLayout();
             this.groupBox_PhotoReview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).BeginInit();
@@ -166,9 +168,9 @@ namespace TinyPhotoShop
             // 
             // textBox_OutputDir
             // 
+            this.textBox_OutputDir.BackColor = System.Drawing.SystemColors.Window;
             this.textBox_OutputDir.Location = new System.Drawing.Point(6, 29);
             this.textBox_OutputDir.Name = "textBox_OutputDir";
-            this.textBox_OutputDir.ReadOnly = true;
             this.textBox_OutputDir.Size = new System.Drawing.Size(459, 30);
             this.textBox_OutputDir.TabIndex = 4;
             // 
@@ -271,6 +273,11 @@ namespace TinyPhotoShop
             this.comboBox1.Size = new System.Drawing.Size(182, 32);
             this.comboBox1.TabIndex = 8;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 150;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -328,6 +335,7 @@ namespace TinyPhotoShop
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

@@ -90,6 +90,7 @@ namespace TinyPhotoShop
             this.textBox_OpenFiles.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox_OpenFiles.Size = new System.Drawing.Size(718, 135);
             this.textBox_OpenFiles.TabIndex = 2;
+            this.textBox_OpenFiles.WordWrap = false;
             // 
             // groupBox_PhotoReview
             // 
@@ -197,6 +198,7 @@ namespace TinyPhotoShop
             this.textBox_ProcessingInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox_ProcessingInfo.Size = new System.Drawing.Size(1049, 90);
             this.textBox_ProcessingInfo.TabIndex = 0;
+            this.textBox_ProcessingInfo.WordWrap = false;
             // 
             // button_Start
             // 

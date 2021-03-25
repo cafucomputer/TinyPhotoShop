@@ -12,7 +12,8 @@ namespace TinyPhotoShop
 {
     public partial class FormMain : Form
     {
-        public static Int32 textBoxBlinkTimes = 4;
+        private const int TextBoxBlinkTimes = 4;
+        private static int blinkTimeCounter = TextBoxBlinkTimes;
         public static Color textBoxOriginalBackColor = Color.White;
 
         public FormMain()
@@ -41,23 +42,34 @@ namespace TinyPhotoShop
 
         private void button_Start_Click(object sender, EventArgs e)
         {
+            //
             //check before continue
-            if(textBox_OpenFiles.TextLength < 4)
+            //
+            if(textBox_OpenFiles.TextLength < 4)    //input not qualified
             {
-                //an absolute file path suppose longer then 4 chars e.g  "c:\a"
+                //an absolute file path suppose longer then 4 chars, e.g: "c:\a"
                 textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OpenFiles.Text + " ] is not a file(s)" + "\r\n");
+
+                //store original color
+                textBoxOriginalBackColor = textBox_OpenFiles.BackColor;
+
+                //attach a Tag and triger the timer
+                timerPromptError.Tag = "input_files_error";
+                timerPromptError.Enabled = true;
                 return;
             }
-            if(textBox_OutputDir.TextLength < 3)
+
+            if(textBox_OutputDir.TextLength < 3)    //output not qualified
             {
-                //an absolute dir path suppose longer then 3 chars e.g  "c:\"
+                //an absolute dir path suppose longer then 3 chars, e.g: "c:\"
                 textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OutputDir.Text + " ] is not a directory" + "\r\n");
 
                 //store original color
                 textBoxOriginalBackColor = textBox_OutputDir.BackColor;
 
-                timer1.Enabled = true;
-                timer1.Start();
+                //attach a Tag and triger the timer
+                timerPromptError.Tag = "output_dir_error";
+                timerPromptError.Enabled = true;
                 return;
             }
 
@@ -74,19 +86,51 @@ namespace TinyPhotoShop
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timerPromptError_Tick(object sender, EventArgs e)
         {
-            if(textBoxBlinkTimes > 0)
-            {
-                if (textBox_OutputDir.BackColor == textBoxOriginalBackColor)
-                    textBox_OutputDir.BackColor = Color.Red;
-                else
-                    textBox_OutputDir.BackColor = textBoxOriginalBackColor;
+            //
+            //TODO: this is a piece of shit code, I apologize, will optimize it later
+            //
+            Timer t = sender as Timer;
+            string s = t.Tag as string;
 
-                textBoxBlinkTimes --;
-            } else {
-                textBoxBlinkTimes = 4;
-                timer1.Stop();
+            if (s != null && s.Equals("input_files_error"))
+            {
+                //Test
+                textBox_ProcessingInfo.AppendText(s + "\r\n");
+                if (blinkTimeCounter > 0)
+                {
+                    if (textBox_OpenFiles.BackColor == textBoxOriginalBackColor)
+                        textBox_OpenFiles.BackColor = Color.Red;
+                    else
+                        textBox_OpenFiles.BackColor = textBoxOriginalBackColor;
+
+                    blinkTimeCounter--;
+                }
+                else
+                {
+                    blinkTimeCounter = TextBoxBlinkTimes;
+                    timerPromptError.Enabled = false;
+                }
+            } 
+            else if (s != null && s.Equals("output_dir_error"))
+            {
+                //Test
+                textBox_ProcessingInfo.AppendText(s + "\r\n");
+                if (blinkTimeCounter > 0)
+                {
+                    if (textBox_OutputDir.BackColor == textBoxOriginalBackColor)
+                        textBox_OutputDir.BackColor = Color.Red;
+                    else
+                        textBox_OutputDir.BackColor = textBoxOriginalBackColor;
+
+                    blinkTimeCounter--;
+                }
+                else
+                {
+                    blinkTimeCounter = TextBoxBlinkTimes;
+                    timerPromptError.Enabled = false;
+                }
             }
         }
     }

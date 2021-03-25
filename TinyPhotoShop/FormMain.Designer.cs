@@ -52,7 +52,7 @@ namespace TinyPhotoShop
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerPromptError = new System.Windows.Forms.Timer(this.components);
             this.groupBox_InputFiles.SuspendLayout();
             this.groupBox_PhotoReview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).BeginInit();
@@ -273,10 +273,10 @@ namespace TinyPhotoShop
             this.comboBox1.Size = new System.Drawing.Size(182, 32);
             this.comboBox1.TabIndex = 8;
             // 
-            // timer1
+            // timerPromptError
             // 
-            this.timer1.Interval = 150;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerPromptError.Interval = 150;
+            this.timerPromptError.Tick += new System.EventHandler(this.timerPromptError_Tick);
             // 
             // FormMain
             // 
@@ -335,7 +335,7 @@ namespace TinyPhotoShop
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerPromptError;
     }
 }
 

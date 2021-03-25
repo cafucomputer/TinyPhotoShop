@@ -31,6 +31,7 @@ namespace TinyPhotoShop
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox_InputFiles = new System.Windows.Forms.GroupBox();
+            this.buttonClearInputFilesList = new System.Windows.Forms.Button();
             this.button_OpenFiles = new System.Windows.Forms.Button();
             this.textBox_OpenFiles = new System.Windows.Forms.TextBox();
             this.groupBox_PhotoReview = new System.Windows.Forms.GroupBox();
@@ -64,6 +65,7 @@ namespace TinyPhotoShop
             // 
             // groupBox_InputFiles
             // 
+            this.groupBox_InputFiles.Controls.Add(this.buttonClearInputFilesList);
             this.groupBox_InputFiles.Controls.Add(this.button_OpenFiles);
             this.groupBox_InputFiles.Controls.Add(this.textBox_OpenFiles);
             this.groupBox_InputFiles.Location = new System.Drawing.Point(12, 70);
@@ -71,15 +73,25 @@ namespace TinyPhotoShop
             this.groupBox_InputFiles.Size = new System.Drawing.Size(808, 164);
             this.groupBox_InputFiles.TabIndex = 0;
             this.groupBox_InputFiles.TabStop = false;
-            this.groupBox_InputFiles.Text = "Input Files ↓";
+            this.groupBox_InputFiles.Text = "Input Files (all files listed here will be edited)↓";
+            // 
+            // buttonClearInputFilesList
+            // 
+            this.buttonClearInputFilesList.Location = new System.Drawing.Point(724, 130);
+            this.buttonClearInputFilesList.Name = "buttonClearInputFilesList";
+            this.buttonClearInputFilesList.Size = new System.Drawing.Size(84, 34);
+            this.buttonClearInputFilesList.TabIndex = 4;
+            this.buttonClearInputFilesList.Text = "Clear";
+            this.buttonClearInputFilesList.UseVisualStyleBackColor = true;
+            this.buttonClearInputFilesList.Click += new System.EventHandler(this.buttonClearInputFilesList_Click);
             // 
             // button_OpenFiles
             // 
             this.button_OpenFiles.Location = new System.Drawing.Point(724, 29);
             this.button_OpenFiles.Name = "button_OpenFiles";
-            this.button_OpenFiles.Size = new System.Drawing.Size(84, 135);
+            this.button_OpenFiles.Size = new System.Drawing.Size(84, 81);
             this.button_OpenFiles.TabIndex = 3;
-            this.button_OpenFiles.Text = "Open File(s)";
+            this.button_OpenFiles.Text = "Add File(s)";
             this.button_OpenFiles.UseVisualStyleBackColor = true;
             this.button_OpenFiles.Click += new System.EventHandler(this.button_OpenFiles_Click);
             // 
@@ -154,7 +166,7 @@ namespace TinyPhotoShop
             this.groupBox_Output_Dir.Size = new System.Drawing.Size(555, 65);
             this.groupBox_Output_Dir.TabIndex = 3;
             this.groupBox_Output_Dir.TabStop = false;
-            this.groupBox_Output_Dir.Text = "Output Directory ↓";
+            this.groupBox_Output_Dir.Text = "Output Directory (Save edited Photos to This Folder)↓";
             // 
             // button_Save
             // 
@@ -336,6 +348,7 @@ namespace TinyPhotoShop
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Timer timerPromptError;
+        private System.Windows.Forms.Button buttonClearInputFilesList;
     }
 }
 

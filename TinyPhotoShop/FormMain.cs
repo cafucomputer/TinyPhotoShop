@@ -133,5 +133,10 @@ namespace TinyPhotoShop
                 }
             }
         }
+
+        private void buttonClearInputFilesList_Click(object sender, EventArgs e)
+        {
+            textBox_OpenFiles.Clear();
+        }
     }
 }

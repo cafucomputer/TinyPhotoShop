@@ -15,6 +15,7 @@ namespace TinyPhotoShop
 {
     public partial class FormMain : Form
     {
+        private string sSuffix;
         private const int TextBoxBlinkTimes = 4;
         private static float flt_ScalePercent = 0;
         private static Rectangle rectOut;
@@ -50,74 +51,81 @@ namespace TinyPhotoShop
             //
             //Check all necessary options before process
             //
-            //check scale percentage
-            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-            nfi.NumberDecimalDigits = 3;
-            flt_ScalePercent = float.Parse(textBox_ScalePercentage.Text, nfi);
-            flt_ScalePercent /= 100;
-            if(flt_ScalePercent <= 0 || flt_ScalePercent > 100)
+            try
             {
-                textBox_ProcessingInfo.AppendText("The Scal Percentage you input: [ " + flt_ScalePercent.ToString() + " ] supporse between 0 - 100\r\n");
+                //check scale percentage
+                NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                nfi.NumberDecimalDigits = 3;
+                flt_ScalePercent = float.Parse(textBox_ScalePercentage.Text, nfi);
+                if (flt_ScalePercent <= 0 || flt_ScalePercent >= 100)
+                {
+                    textBox_ProcessingInfo.AppendText("The Scal Percentage you input: [ " + flt_ScalePercent.ToString() + " ] supporse between 0 - 100\r\n");
+                    return;
+                }
+                flt_ScalePercent /= 100;
+            } 
+            catch (Exception ec)
+            {
+                textBox_ProcessingInfo.AppendText(">>> Scale Number error\n\r" + ec.ToString() + "Scale Number\n\r");
                 return;
             }
 
-            //check input box
-            if (textBox_OpenFiles.TextLength < 4)    //input not qualified
+            //check output dir
+            if (Directory.Exists(textBox_OutputDir.Text) == false)
             {
-                //an absolute file path suppose longer then 4 chars, e.g: "c:\a"
-                textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OpenFiles.Text + " ] is not a file(s)" + "\r\n");
-
-                //store original color
-                textBoxOriginalBackColor = textBox_OpenFiles.BackColor;
-
-                //attach a Tag and triger the timer
-                timerPromptError.Tag = "input_files_error";
-                timerPromptError.Enabled = true;
-                return;
-            }
-
-            //check output box
-            if(textBox_OutputDir.TextLength < 3)    //output not qualified
-            {
-                //an absolute dir path suppose longer then 3 chars, e.g: "c:\"
-                textBox_ProcessingInfo.AppendText("Error: [ " + textBox_OutputDir.Text + " ] is not a directory" + "\r\n");
-
-                //store original color
-                textBoxOriginalBackColor = textBox_OutputDir.BackColor;
-
-                //attach a Tag and triger the timer
-                timerPromptError.Tag = "output_dir_error";
-                timerPromptError.Enabled = true;
-                return;
+                try
+                {
+                    DialogResult dialogCreateDir = MessageBox.Show(
+                                                    "Create New Folder named  "
+                                                    + Path.GetFileNameWithoutExtension(textBox_OutputDir.Text),
+                                                    "This directory does NOT exist",
+                                                    MessageBoxButtons.YesNo);
+                    if (dialogCreateDir == DialogResult.Yes)
+                    {
+                        //create dir
+                        DirectoryInfo di_NewOutputDir = Directory.CreateDirectory(textBox_OutputDir.Text);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                catch (Exception ec)
+                {
+                    textBox_ProcessingInfo.AppendText(">>> Output Directory error\n\r" + ec.ToString() + "\n\rOutput Directory\n\r");
+                    return;
+                }
             }
 
             //enumerate all files
-            foreach (String sFile in textBox_OpenFiles.Lines)
+            try
             {
-                //an absolute file path suppose longer then 4 chars e.g  "c:\a"
-                if (sFile.Length >= 4)
+                foreach (String sFile in textBox_OpenFiles.Lines)
                 {
-                    //show processing info
-                    textBox_ProcessingInfo.AppendText("Processing " + sFile + "\r\n");
-
-                    if (File.Exists(sFile)) //process every file
+                    //minimum file path e.g: [ C:\a ] length is 4
+                    if (sFile.Length >= 4 && File.Exists(sFile)) //process every file
                     {
+                        //show processing info
+                        textBox_ProcessingInfo.AppendText("Processing " + sFile + "\r\n");
+
                         //load source file as a Bitmap
                         Bitmap bmSrcFile = new Bitmap(sFile);
                         rectOut = new Rectangle(0, 0, (int)(bmSrcFile.Width * flt_ScalePercent), (int)(bmSrcFile.Height * flt_ScalePercent));
-                        
+
                         //resize
                         Bitmap bmSrcFileCropped = new Bitmap(bmSrcFile, rectOut.Size);
 
                         //change format
                         Bitmap bmDstFile = bmSrcFileCropped.Clone(rectOut, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-                        bmDstFile.Save(textBox_OutputDir.Text + '\\' + Path.GetFileNameWithoutExtension(sFile) +"_cropped.jpg", ImageFormat.Jpeg);
-                    }
-                    else
-                    {
-                        textBox_ProcessingInfo.AppendText("File " + sFile + "is not exist" + "\r\n");
+                        sSuffix = textBoxSuffix.Text.Length > 0 ? textBoxSuffix.Text : "_cropped.jpg";
+                        bmDstFile.Save(textBox_OutputDir.Text + '\\' + Path.GetFileNameWithoutExtension(sFile) + sSuffix, ImageFormat.Jpeg);
                     }
                 }
+            }
+            catch (Exception ec)
+            {
+                textBox_ProcessingInfo.AppendText(">>> File Input error:\n\r" + ec.ToString() + "\n\rFile Input<<\n\r");
+                return;
             }
 
         }

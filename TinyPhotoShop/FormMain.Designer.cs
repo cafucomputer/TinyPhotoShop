@@ -37,6 +37,8 @@ namespace TinyPhotoShop
             this.groupBox_PhotoReview = new System.Windows.Forms.GroupBox();
             this.pictureBox_Preview = new System.Windows.Forms.PictureBox();
             this.groupBox_MiscOptions = new System.Windows.Forms.GroupBox();
+            this.labelSuffix = new System.Windows.Forms.Label();
+            this.textBoxSuffix = new System.Windows.Forms.TextBox();
             this.checkBox_AddWaterPrint = new System.Windows.Forms.CheckBox();
             this.checkBox_RemoveEXIF = new System.Windows.Forms.CheckBox();
             this.groupBox_Output_Dir = new System.Windows.Forms.GroupBox();
@@ -103,7 +105,6 @@ namespace TinyPhotoShop
             this.textBox_OpenFiles.Location = new System.Drawing.Point(0, 29);
             this.textBox_OpenFiles.Multiline = true;
             this.textBox_OpenFiles.Name = "textBox_OpenFiles";
-            this.textBox_OpenFiles.ReadOnly = true;
             this.textBox_OpenFiles.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox_OpenFiles.Size = new System.Drawing.Size(718, 135);
             this.textBox_OpenFiles.TabIndex = 0;
@@ -129,6 +130,8 @@ namespace TinyPhotoShop
             // 
             // groupBox_MiscOptions
             // 
+            this.groupBox_MiscOptions.Controls.Add(this.labelSuffix);
+            this.groupBox_MiscOptions.Controls.Add(this.textBoxSuffix);
             this.groupBox_MiscOptions.Controls.Add(this.checkBox_AddWaterPrint);
             this.groupBox_MiscOptions.Controls.Add(this.checkBox_RemoveEXIF);
             this.groupBox_MiscOptions.Location = new System.Drawing.Point(12, 247);
@@ -137,6 +140,23 @@ namespace TinyPhotoShop
             this.groupBox_MiscOptions.TabIndex = 2;
             this.groupBox_MiscOptions.TabStop = false;
             this.groupBox_MiscOptions.Text = "Misc Options ↓";
+            // 
+            // labelSuffix
+            // 
+            this.labelSuffix.AutoSize = true;
+            this.labelSuffix.Location = new System.Drawing.Point(3, 129);
+            this.labelSuffix.Name = "labelSuffix";
+            this.labelSuffix.Size = new System.Drawing.Size(66, 24);
+            this.labelSuffix.TabIndex = 10;
+            this.labelSuffix.Text = "Suffiix:";
+            // 
+            // textBoxSuffix
+            // 
+            this.textBoxSuffix.Location = new System.Drawing.Point(75, 124);
+            this.textBoxSuffix.Name = "textBoxSuffix";
+            this.textBoxSuffix.Size = new System.Drawing.Size(112, 30);
+            this.textBoxSuffix.TabIndex = 9;
+            this.textBoxSuffix.Text = "_cropped.jpg";
             // 
             // checkBox_AddWaterPrint
             // 
@@ -189,6 +209,7 @@ namespace TinyPhotoShop
             this.textBox_ScalePercentage.Name = "textBox_ScalePercentage";
             this.textBox_ScalePercentage.Size = new System.Drawing.Size(95, 30);
             this.textBox_ScalePercentage.TabIndex = 5;
+            this.textBox_ScalePercentage.Text = "33.333";
             // 
             // label1
             // 
@@ -375,6 +396,8 @@ namespace TinyPhotoShop
         private System.Windows.Forms.GroupBox groupBox_Scale;
         private System.Windows.Forms.TextBox textBox_ScalePercentage;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxSuffix;
+        private System.Windows.Forms.Label labelSuffix;
     }
 }
 

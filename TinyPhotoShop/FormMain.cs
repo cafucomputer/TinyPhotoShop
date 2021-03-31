@@ -32,7 +32,7 @@ namespace TinyPhotoShop
             {
                 foreach (String sFileName in openFileDialog1.FileNames)
                 {
-                    textBox_OpenFiles.AppendText(sFileName + "\r\n");
+                    textBox_OpenFiles.AppendText(sFileName + Environment.NewLine);
                 }
             }
         }
@@ -65,41 +65,49 @@ namespace TinyPhotoShop
             } 
             catch (Exception ec)
             {
-                textBox_ProcessingInfo.AppendText(">>> Scale Number error\n\r" + ec.ToString() + "Scale Number\n\r");
+                textBox_ProcessingInfo.AppendText(Environment.NewLine + ">>> Scale Number error :" + ec.ToString());
                 return;
             }
 
-            //check output dir
-            if (Directory.Exists(textBox_OutputDir.Text) == false)
+            //check output dir, string must contains a root drive like c:\ or d:\
+            if(Path.IsPathRooted(textBox_OutputDir.Text) == true)
             {
-                try
+                if (Directory.Exists(textBox_OutputDir.Text) == false)
                 {
-                    //check if the first 2 char as Drive exist like c:
-                    DialogResult dialogCreateDir = MessageBox.Show(
-                                                    "Create New Folder named: ["
-                                                    + Path.GetFileNameWithoutExtension(textBox_OutputDir.Text) +" ]",
-                                                    "This directory does NOT exist",
-                                                    MessageBoxButtons.YesNo);
-                    if (dialogCreateDir == DialogResult.Yes)
+                    try
                     {
-                        //create dir
-                        DirectoryInfo di_NewOutputDir = Directory.CreateDirectory(textBox_OutputDir.Text);
+                        DialogResult dialogCreateDir = MessageBox.Show(
+                                                        "Create New Folder named: ["
+                                                        + Path.GetFileNameWithoutExtension(textBox_OutputDir.Text) + " ]",
+                                                        "This directory does NOT exist",
+                                                        MessageBoxButtons.YesNo);
+                        if (dialogCreateDir == DialogResult.Yes)
+                        {
+                            //create dir
+                            DirectoryInfo di_NewOutputDir = Directory.CreateDirectory(textBox_OutputDir.Text);
 
-                        //create failed, return
-                        if (Directory.Exists(textBox_OutputDir.Text) == false)
+                            //create failed, return
+                            if (Directory.Exists(textBox_OutputDir.Text) == false)
+                                return;
+                        }
+                        else
+                        {
                             return;
+                        }
                     }
-                    else
+                    catch (Exception ec)
                     {
+                        textBox_ProcessingInfo.AppendText(Environment.NewLine + ">>> Output Directory error :" + ec.ToString() + Environment.NewLine);
                         return;
                     }
                 }
-                catch (Exception ec)
-                {
-                    textBox_ProcessingInfo.AppendText("\r\n>>> Output Directory error\n\r" + ec.ToString() + "\n\rOutput Directory\n\r");
-                    return;
-                }
             }
+            else //Show error MUST use rooted path
+            {
+                textBox_ProcessingInfo.AppendText(Environment.NewLine + "Plese use ROOTED path !!!");
+                return;
+            }
+
 
             //enumerate all files
             try
@@ -110,7 +118,7 @@ namespace TinyPhotoShop
                     if (sFile.Length >= 4 && File.Exists(sFile)) //process every file
                     {
                         //show processing info
-                        textBox_ProcessingInfo.AppendText("Processing " + sFile + "\r\n");
+                        textBox_ProcessingInfo.AppendText(Environment.NewLine + "Processing :" + sFile);
 
                         //load source file as a Bitmap
                         Bitmap bmSrcFile = new Bitmap(sFile);
@@ -128,7 +136,7 @@ namespace TinyPhotoShop
             }
             catch (Exception ec)
             {
-                textBox_ProcessingInfo.AppendText(">>> File Input error:\n\r" + ec.ToString() + "\n\rFile Input<<\n\r");
+                textBox_ProcessingInfo.AppendText(Environment.NewLine + ">>> File Input error :" + ec.ToString());
                 return;
             }
 

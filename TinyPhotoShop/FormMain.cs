@@ -19,7 +19,6 @@ namespace TinyPhotoShop
         private const int TextBoxBlinkTimes = 4;
         private static float flt_ScalePercent = 0;
         private static Rectangle rectOut;
-        private static int blinkTimeCounter = TextBoxBlinkTimes;
         public static Color textBoxOriginalBackColor = Color.White;
 
         public FormMain()
@@ -75,15 +74,20 @@ namespace TinyPhotoShop
             {
                 try
                 {
+                    //check if the first 2 char as Drive exist like c:
                     DialogResult dialogCreateDir = MessageBox.Show(
-                                                    "Create New Folder named  "
-                                                    + Path.GetFileNameWithoutExtension(textBox_OutputDir.Text),
+                                                    "Create New Folder named: ["
+                                                    + Path.GetFileNameWithoutExtension(textBox_OutputDir.Text) +" ]",
                                                     "This directory does NOT exist",
                                                     MessageBoxButtons.YesNo);
                     if (dialogCreateDir == DialogResult.Yes)
                     {
                         //create dir
                         DirectoryInfo di_NewOutputDir = Directory.CreateDirectory(textBox_OutputDir.Text);
+
+                        //create failed, return
+                        if (Directory.Exists(textBox_OutputDir.Text) == false)
+                            return;
                     }
                     else
                     {
@@ -92,7 +96,7 @@ namespace TinyPhotoShop
                 }
                 catch (Exception ec)
                 {
-                    textBox_ProcessingInfo.AppendText(">>> Output Directory error\n\r" + ec.ToString() + "\n\rOutput Directory\n\r");
+                    textBox_ProcessingInfo.AppendText("\r\n>>> Output Directory error\n\r" + ec.ToString() + "\n\rOutput Directory\n\r");
                     return;
                 }
             }
@@ -128,51 +132,7 @@ namespace TinyPhotoShop
                 return;
             }
 
-        }
-
-        private void timerPromptError_Tick(object sender, EventArgs e)
-        {
-            //
-            //TODO: this is a piece of shit code, I apologize, will optimize it later
-            //
-            Timer t = sender as Timer;
-            string s = t.Tag as string;
-
-            if (s != null && s.Equals("input_files_error"))
-            {
-                if (blinkTimeCounter > 0)
-                {
-                    if (textBox_OpenFiles.BackColor == textBoxOriginalBackColor)
-                        textBox_OpenFiles.BackColor = Color.Red;
-                    else
-                        textBox_OpenFiles.BackColor = textBoxOriginalBackColor;
-
-                    blinkTimeCounter--;
-                }
-                else
-                {
-                    blinkTimeCounter = TextBoxBlinkTimes;
-                    timerPromptError.Enabled = false;
-                }
-            } 
-            else if (s != null && s.Equals("output_dir_error"))
-            {
-                if (blinkTimeCounter > 0)
-                {
-                    if (textBox_OutputDir.BackColor == textBoxOriginalBackColor)
-                        textBox_OutputDir.BackColor = Color.Red;
-                    else
-                        textBox_OutputDir.BackColor = textBoxOriginalBackColor;
-
-                    blinkTimeCounter--;
-                }
-                else
-                {
-                    blinkTimeCounter = TextBoxBlinkTimes;
-                    timerPromptError.Enabled = false;
-                }
-            }
-        }
+        } //button_Start_Click()
 
         private void buttonClearInputFilesList_Click(object sender, EventArgs e)
         {

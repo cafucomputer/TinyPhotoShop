@@ -29,7 +29,6 @@ namespace TinyPhotoShop
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.groupBox_InputFiles = new System.Windows.Forms.GroupBox();
             this.buttonClearInputFilesList = new System.Windows.Forms.Button();
             this.button_OpenFiles = new System.Windows.Forms.Button();
@@ -57,7 +56,6 @@ namespace TinyPhotoShop
             this.label_Version = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.timerPromptError = new System.Windows.Forms.Timer(this.components);
             this.groupBox_InputFiles.SuspendLayout();
             this.groupBox_PhotoReview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).BeginInit();
@@ -329,11 +327,6 @@ namespace TinyPhotoShop
             this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.UserProfile;
             this.folderBrowserDialog1.UseDescriptionForTitle = true;
             // 
-            // timerPromptError
-            // 
-            this.timerPromptError.Interval = 150;
-            this.timerPromptError.Tick += new System.EventHandler(this.timerPromptError_Tick);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -391,7 +384,6 @@ namespace TinyPhotoShop
         private System.Windows.Forms.CheckBox checkBox_AddWaterPrint;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Timer timerPromptError;
         private System.Windows.Forms.Button buttonClearInputFilesList;
         private System.Windows.Forms.GroupBox groupBox_Scale;
         private System.Windows.Forms.TextBox textBox_ScalePercentage;

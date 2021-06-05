@@ -38,7 +38,7 @@ namespace TinyPhotoShop
             this.groupBox_MiscOptions = new System.Windows.Forms.GroupBox();
             this.labelSuffix = new System.Windows.Forms.Label();
             this.textBoxSuffix = new System.Windows.Forms.TextBox();
-            this.checkBox_AddWaterPrint = new System.Windows.Forms.CheckBox();
+            this.checkBox_AddWatermark = new System.Windows.Forms.CheckBox();
             this.checkBox_RemoveEXIF = new System.Windows.Forms.CheckBox();
             this.groupBox_Output_Dir = new System.Windows.Forms.GroupBox();
             this.groupBox_Scale = new System.Windows.Forms.GroupBox();
@@ -56,6 +56,9 @@ namespace TinyPhotoShop
             this.label_Version = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.labelFormat = new System.Windows.Forms.Label();
+            this.radioButtonFormatJPG = new System.Windows.Forms.RadioButton();
+            this.radioButtonFormatPNG = new System.Windows.Forms.RadioButton();
             this.groupBox_InputFiles.SuspendLayout();
             this.groupBox_PhotoReview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).BeginInit();
@@ -73,16 +76,16 @@ namespace TinyPhotoShop
             this.groupBox_InputFiles.Controls.Add(this.textBox_OpenFiles);
             this.groupBox_InputFiles.Location = new System.Drawing.Point(12, 70);
             this.groupBox_InputFiles.Name = "groupBox_InputFiles";
-            this.groupBox_InputFiles.Size = new System.Drawing.Size(808, 164);
+            this.groupBox_InputFiles.Size = new System.Drawing.Size(824, 164);
             this.groupBox_InputFiles.TabIndex = 1;
             this.groupBox_InputFiles.TabStop = false;
             this.groupBox_InputFiles.Text = "Input Files (all files listed here will be edited)↓";
             // 
             // buttonClearInputFilesList
             // 
-            this.buttonClearInputFilesList.Location = new System.Drawing.Point(724, 130);
+            this.buttonClearInputFilesList.Location = new System.Drawing.Point(724, 116);
             this.buttonClearInputFilesList.Name = "buttonClearInputFilesList";
-            this.buttonClearInputFilesList.Size = new System.Drawing.Size(84, 34);
+            this.buttonClearInputFilesList.Size = new System.Drawing.Size(94, 34);
             this.buttonClearInputFilesList.TabIndex = 2;
             this.buttonClearInputFilesList.Text = "Clear";
             this.buttonClearInputFilesList.UseVisualStyleBackColor = true;
@@ -92,7 +95,7 @@ namespace TinyPhotoShop
             // 
             this.button_OpenFiles.Location = new System.Drawing.Point(724, 29);
             this.button_OpenFiles.Name = "button_OpenFiles";
-            this.button_OpenFiles.Size = new System.Drawing.Size(84, 81);
+            this.button_OpenFiles.Size = new System.Drawing.Size(94, 81);
             this.button_OpenFiles.TabIndex = 1;
             this.button_OpenFiles.Text = "Add File(s)";
             this.button_OpenFiles.UseVisualStyleBackColor = true;
@@ -130,11 +133,11 @@ namespace TinyPhotoShop
             // 
             this.groupBox_MiscOptions.Controls.Add(this.labelSuffix);
             this.groupBox_MiscOptions.Controls.Add(this.textBoxSuffix);
-            this.groupBox_MiscOptions.Controls.Add(this.checkBox_AddWaterPrint);
+            this.groupBox_MiscOptions.Controls.Add(this.checkBox_AddWatermark);
             this.groupBox_MiscOptions.Controls.Add(this.checkBox_RemoveEXIF);
             this.groupBox_MiscOptions.Location = new System.Drawing.Point(12, 247);
             this.groupBox_MiscOptions.Name = "groupBox_MiscOptions";
-            this.groupBox_MiscOptions.Size = new System.Drawing.Size(203, 170);
+            this.groupBox_MiscOptions.Size = new System.Drawing.Size(277, 170);
             this.groupBox_MiscOptions.TabIndex = 2;
             this.groupBox_MiscOptions.TabStop = false;
             this.groupBox_MiscOptions.Text = "Misc Options ↓";
@@ -152,19 +155,19 @@ namespace TinyPhotoShop
             // 
             this.textBoxSuffix.Location = new System.Drawing.Point(75, 124);
             this.textBoxSuffix.Name = "textBoxSuffix";
-            this.textBoxSuffix.Size = new System.Drawing.Size(112, 30);
+            this.textBoxSuffix.Size = new System.Drawing.Size(196, 30);
             this.textBoxSuffix.TabIndex = 9;
             this.textBoxSuffix.Text = "_cropped.jpg";
             // 
-            // checkBox_AddWaterPrint
+            // checkBox_AddWatermark
             // 
-            this.checkBox_AddWaterPrint.AutoSize = true;
-            this.checkBox_AddWaterPrint.Location = new System.Drawing.Point(3, 60);
-            this.checkBox_AddWaterPrint.Name = "checkBox_AddWaterPrint";
-            this.checkBox_AddWaterPrint.Size = new System.Drawing.Size(176, 28);
-            this.checkBox_AddWaterPrint.TabIndex = 8;
-            this.checkBox_AddWaterPrint.Text = "Add Water Print";
-            this.checkBox_AddWaterPrint.UseVisualStyleBackColor = true;
+            this.checkBox_AddWatermark.AutoSize = true;
+            this.checkBox_AddWatermark.Location = new System.Drawing.Point(3, 60);
+            this.checkBox_AddWatermark.Name = "checkBox_AddWatermark";
+            this.checkBox_AddWatermark.Size = new System.Drawing.Size(174, 28);
+            this.checkBox_AddWatermark.TabIndex = 8;
+            this.checkBox_AddWatermark.Text = "Add Watermark";
+            this.checkBox_AddWatermark.UseVisualStyleBackColor = true;
             // 
             // checkBox_RemoveEXIF
             // 
@@ -183,20 +186,23 @@ namespace TinyPhotoShop
             this.groupBox_Output_Dir.Controls.Add(this.groupBox_Scale);
             this.groupBox_Output_Dir.Controls.Add(this.button_Save);
             this.groupBox_Output_Dir.Controls.Add(this.textBox_OutputDir);
-            this.groupBox_Output_Dir.Location = new System.Drawing.Point(265, 247);
+            this.groupBox_Output_Dir.Location = new System.Drawing.Point(296, 247);
             this.groupBox_Output_Dir.Name = "groupBox_Output_Dir";
-            this.groupBox_Output_Dir.Size = new System.Drawing.Size(555, 170);
+            this.groupBox_Output_Dir.Size = new System.Drawing.Size(540, 170);
             this.groupBox_Output_Dir.TabIndex = 3;
             this.groupBox_Output_Dir.TabStop = false;
             this.groupBox_Output_Dir.Text = "Output Directory (Save edited Photos to This Folder)↓";
             // 
             // groupBox_Scale
             // 
+            this.groupBox_Scale.Controls.Add(this.radioButtonFormatPNG);
             this.groupBox_Scale.Controls.Add(this.textBox_ScalePercentage);
+            this.groupBox_Scale.Controls.Add(this.radioButtonFormatJPG);
             this.groupBox_Scale.Controls.Add(this.label1);
-            this.groupBox_Scale.Location = new System.Drawing.Point(6, 86);
+            this.groupBox_Scale.Controls.Add(this.labelFormat);
+            this.groupBox_Scale.Location = new System.Drawing.Point(6, 65);
             this.groupBox_Scale.Name = "groupBox_Scale";
-            this.groupBox_Scale.Size = new System.Drawing.Size(543, 78);
+            this.groupBox_Scale.Size = new System.Drawing.Size(528, 99);
             this.groupBox_Scale.TabIndex = 5;
             this.groupBox_Scale.TabStop = false;
             this.groupBox_Scale.Text = "Scale :";
@@ -220,11 +226,11 @@ namespace TinyPhotoShop
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(471, 29);
+            this.button_Save.Location = new System.Drawing.Point(440, 29);
             this.button_Save.Name = "button_Save";
-            this.button_Save.Size = new System.Drawing.Size(84, 30);
+            this.button_Save.Size = new System.Drawing.Size(94, 30);
             this.button_Save.TabIndex = 4;
-            this.button_Save.Text = "Save To";
+            this.button_Save.Text = "Output";
             this.button_Save.UseVisualStyleBackColor = true;
             this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
             // 
@@ -233,7 +239,7 @@ namespace TinyPhotoShop
             this.textBox_OutputDir.BackColor = System.Drawing.SystemColors.Window;
             this.textBox_OutputDir.Location = new System.Drawing.Point(6, 29);
             this.textBox_OutputDir.Name = "textBox_OutputDir";
-            this.textBox_OutputDir.Size = new System.Drawing.Size(459, 30);
+            this.textBox_OutputDir.Size = new System.Drawing.Size(428, 30);
             this.textBox_OutputDir.TabIndex = 3;
             // 
             // groupBox_Processing
@@ -280,7 +286,7 @@ namespace TinyPhotoShop
             this.groupBox_Language.Controls.Add(this.radioButton_English);
             this.groupBox_Language.Location = new System.Drawing.Point(12, 12);
             this.groupBox_Language.Name = "groupBox_Language";
-            this.groupBox_Language.Size = new System.Drawing.Size(808, 52);
+            this.groupBox_Language.Size = new System.Drawing.Size(824, 52);
             this.groupBox_Language.TabIndex = 1;
             this.groupBox_Language.TabStop = false;
             this.groupBox_Language.Text = "Set Language ↓";
@@ -326,6 +332,36 @@ namespace TinyPhotoShop
             this.folderBrowserDialog1.Description = "Chose a Directory to Save Photos";
             this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.UserProfile;
             this.folderBrowserDialog1.UseDescriptionForTitle = true;
+            // 
+            // labelFormat
+            // 
+            this.labelFormat.AutoSize = true;
+            this.labelFormat.Location = new System.Drawing.Point(159, 26);
+            this.labelFormat.Name = "labelFormat";
+            this.labelFormat.Size = new System.Drawing.Size(76, 24);
+            this.labelFormat.TabIndex = 11;
+            this.labelFormat.Text = "Format:";
+            // 
+            // radioButtonFormatJPG
+            // 
+            this.radioButtonFormatJPG.AutoSize = true;
+            this.radioButtonFormatJPG.Checked = true;
+            this.radioButtonFormatJPG.Location = new System.Drawing.Point(241, 29);
+            this.radioButtonFormatJPG.Name = "radioButtonFormatJPG";
+            this.radioButtonFormatJPG.Size = new System.Drawing.Size(66, 28);
+            this.radioButtonFormatJPG.TabIndex = 3;
+            this.radioButtonFormatJPG.Text = "JPG";
+            this.radioButtonFormatJPG.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonFormatPNG
+            // 
+            this.radioButtonFormatPNG.AutoSize = true;
+            this.radioButtonFormatPNG.Location = new System.Drawing.Point(313, 29);
+            this.radioButtonFormatPNG.Name = "radioButtonFormatPNG";
+            this.radioButtonFormatPNG.Size = new System.Drawing.Size(74, 28);
+            this.radioButtonFormatPNG.TabIndex = 12;
+            this.radioButtonFormatPNG.Text = "PNG";
+            this.radioButtonFormatPNG.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -381,7 +417,7 @@ namespace TinyPhotoShop
         private System.Windows.Forms.CheckBox checkBox_RemoveEXIF;
         private System.Windows.Forms.Button button_Save;
         private System.Windows.Forms.TextBox textBox_OutputDir;
-        private System.Windows.Forms.CheckBox checkBox_AddWaterPrint;
+        private System.Windows.Forms.CheckBox checkBox_AddWatermark;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button buttonClearInputFilesList;
@@ -390,6 +426,9 @@ namespace TinyPhotoShop
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxSuffix;
         private System.Windows.Forms.Label labelSuffix;
+        private System.Windows.Forms.RadioButton radioButtonFormatPNG;
+        private System.Windows.Forms.RadioButton radioButtonFormatJPG;
+        private System.Windows.Forms.Label labelFormat;
     }
 }
 

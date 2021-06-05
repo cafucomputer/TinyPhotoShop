@@ -20,6 +20,7 @@ namespace TinyPhotoShop
         private static float flt_ScalePercent = 0;
         private static Rectangle rectOut;
         public static Color textBoxOriginalBackColor = Color.White;
+        private static int FilesCounts = 0;
 
         public FormMain()
         {
@@ -28,12 +29,16 @@ namespace TinyPhotoShop
 
         private void button_OpenFiles_Click(object sender, EventArgs e)
         {
-            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                FilesCounts += openFileDialog1.FileNames.Count();
+
                 foreach (String sFileName in openFileDialog1.FileNames)
                 {
-                    textBox_OpenFiles.AppendText(sFileName + Environment.NewLine);
+                    textBox_OpenFiles.Lines.Append(sFileName + Environment.NewLine);
                 }
+
+                textBox_ProcessingInfo.Lines.Append(Environment.NewLine + ">>> " + FilesCounts + " Files added");
             }
         }
 
@@ -102,9 +107,9 @@ namespace TinyPhotoShop
                     }
                 }
             }
-            else //Show error MUST use rooted path
+            else
             {
-                textBox_ProcessingInfo.AppendText(Environment.NewLine + "Plese use ROOTED path !!!");
+                textBox_ProcessingInfo.AppendText(Environment.NewLine + "Please use rooted path for output");
                 return;
             }
 
@@ -112,6 +117,8 @@ namespace TinyPhotoShop
             //enumerate all files
             try
             {
+                //remove last line before process
+                textBox_OpenFiles.Text = textBox_OpenFiles.Text.Remove(textBox_OpenFiles.Text.LastIndexOf(Environment.NewLine));
                 foreach (String sFile in textBox_OpenFiles.Lines)
                 {
                     //minimum file path e.g: [ C:\a ] length is 4
@@ -145,6 +152,7 @@ namespace TinyPhotoShop
         private void buttonClearInputFilesList_Click(object sender, EventArgs e)
         {
             textBox_OpenFiles.Clear();
+            FilesCounts = 0;
         }
     }
 }

@@ -55,6 +55,13 @@ namespace TinyPhotoShop
             //
             //Check all necessary options before process
             //
+
+            if(textBox_OpenFiles.TextLength < 8) //Min file path like: c:\1.jpg
+            {
+                textBox_ProcessingInfo.AppendText("Please select files" + Environment.NewLine);
+                return;
+            }
+
             try
             {
                 //check scale percentage
@@ -74,6 +81,7 @@ namespace TinyPhotoShop
                 return;
             }
 
+            
             //check output dir, string must contains a root drive like c:\ or d:\
             if(Path.IsPathRooted(textBox_OutputDir.Text) == true)
             {
@@ -153,6 +161,16 @@ namespace TinyPhotoShop
         {
             textBox_OpenFiles.Clear();
             FilesCounts = 0;
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_Preview_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

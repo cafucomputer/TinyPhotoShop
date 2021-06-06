@@ -35,10 +35,10 @@ namespace TinyPhotoShop
 
                 foreach (String sFileName in openFileDialog1.FileNames)
                 {
-                    textBox_OpenFiles.Lines.Append(sFileName + Environment.NewLine);
+                    textBox_OpenFiles.AppendText(sFileName + Environment.NewLine);
                 }
 
-                textBox_ProcessingInfo.Lines.Append(Environment.NewLine + ">>> " + FilesCounts + " Files added");
+                textBox_ProcessingInfo.AppendText(Environment.NewLine + ">>> " + FilesCounts + " Files added");
             }
         }
 
@@ -125,12 +125,10 @@ namespace TinyPhotoShop
             //enumerate all files
             try
             {
-                //remove last line before process
-                textBox_OpenFiles.Text = textBox_OpenFiles.Text.Remove(textBox_OpenFiles.Text.LastIndexOf(Environment.NewLine));
                 foreach (String sFile in textBox_OpenFiles.Lines)
                 {
-                    //minimum file path e.g: [ C:\a ] length is 4
-                    if (sFile.Length >= 4 && File.Exists(sFile)) //process every file
+                    //minimum file path e.g: [ C:\a.jpg ] length is 4
+                    if (sFile.Length >= 8 && File.Exists(sFile)) //process every file
                     {
                         //show processing info
                         textBox_ProcessingInfo.AppendText(Environment.NewLine + "Processing :" + sFile);
